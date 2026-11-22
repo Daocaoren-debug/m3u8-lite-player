@@ -34,15 +34,32 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/scan_all" />
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/scan_all"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/rescanButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_weight="1"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/rescan"
+            android:textSize="13sp" />
 
         <Button
             android:id="@+id/folderButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="6dp"
             android:layout_weight="1"
-            android:text="@string/pick_folder" />
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="@string/pick_folder"
+            android:textSize="13sp" />
     </LinearLayout>
 
     <ProgressBar

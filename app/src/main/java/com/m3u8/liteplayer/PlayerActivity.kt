@@ -1,8 +1,11 @@
 package com.m3u8.liteplayer
 
 import android.app.Activity
+import android.content.pm.ActivityInfo
 import android.net.Uri
 import android.os.Bundle
+import android.view.WindowManager
+import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.media3.common.C
@@ -18,6 +21,10 @@ class PlayerActivity : Activity() {
 
     private var player: ExoPlayer? = null
     private var playerView: PlayerView? = null
+    private var rotateButton: Button? = null
+
+    /** 0 = 跟随系统自动旋转，1 = 锁定横屏，2 = 锁定竖屏 */
+    private var rotateMode = 0
 
     companion object {
         const val EXTRA_URI = "uri"
@@ -26,6 +33,8 @@ class PlayerActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 播放时别让屏幕自己熄灭
+        window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_player)
 
         val uriString = intent.getStringExtra(EXTRA_URI)
@@ -35,6 +44,13 @@ class PlayerActivity : Activity() {
         }
         val name = intent.getStringExtra(EXTRA_NAME) ?: getString(R.string.app_name)
         findViewById<TextView>(R.id.playerTitle).text = name
+
+        rotateButton = findViewById(R.id.rotateButton)
+        rotateButton?.setOnClickListener {
+            rotateMode = (rotateMode + 1) % 3
+            applyRotation()
+        }
+        applyRotation()
 
         playerView = findViewById<PlayerView>(R.id.playerView).apply {
             setShowFastForwardButton(true)   // 快进 10 秒
@@ -68,6 +84,23 @@ class PlayerActivity : Activity() {
             }
 
         playerView?.player = player
+    }
+
+    /**
+     * 三种模式轮换：自动（跟随手机方向）→ 横屏 → 竖屏 → 自动。
+     * 清单里已配置 configChanges，切换时不会重建 Activity，播放不会中断。
+     */
+    private fun applyRotation() {
+        requestedOrientation = when (rotateMode) {
+            1 -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
+            2 -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
+            else -> ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+        }
+        rotateButton?.text = when (rotateMode) {
+            1 -> getString(R.string.rotate_land)
+            2 -> getString(R.string.rotate_portrait)
+            else -> getString(R.string.rotate_auto)
+        }
     }
 
     override fun onStop() {

@@ -2,8 +2,19 @@
 <resources>
     <string name="app_name">M3U8 轻量播放器</string>
     <string name="hint_scan">扫描手机里的 .m3u8 文件并直接播放</string>
-    <string name="scan_all">扫描本机</string>
+    <string name="scan_all">扫描新增</string>
+    <string name="rescan">全量重扫</string>
     <string name="pick_folder">选择文件夹</string>
     <string name="empty_result">没有找到 m3u8 文件。\n请确认已授权“所有文件访问权限”，或使用“选择文件夹”。</string>
     <string name="thumbnail_desc">视频预览图</string>
+    <string name="rotate_auto">自动</string>
+    <string name="rotate_land">横屏</string>
+    <string name="rotate_portrait">竖屏</string>
+    <string name="loaded_cache">已载入上次扫描的 %1$d 个文件，正在检查新增…</string>
+    <string name="scanning_new">正在检查新增视频…</string>
+    <string name="scanning_all">正在重新扫描全部…</string>
+    <string name="count_no_new">共 %1$d 个文件，没有新增</string>
+    <string name="count_with_new">共 %1$d 个文件，新增 %2$d 个</string>
+    <string name="count_rescanned">共 %1$d 个文件（已全量重扫）</string>
+    <string name="empty_result_short">没有找到 m3u8 文件</string>
 </resources>
