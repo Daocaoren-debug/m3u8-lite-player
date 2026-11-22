@@ -23,7 +23,7 @@ class PlayerActivity : Activity() {
     private var playerView: PlayerView? = null
     private var rotateButton: Button? = null
 
-    /** 0 = 跟随系统自动旋转，1 = 锁定横屏，2 = 锁定竖屏 */
+    /** 0 = 跟随重力感应自动旋转，1 = 锁定横屏，2 = 锁定竖屏 */
     private var rotateMode = 0
 
     companion object {
@@ -87,14 +87,14 @@ class PlayerActivity : Activity() {
     }
 
     /**
-     * 三种模式轮换：自动（跟随手机方向）→ 横屏 → 竖屏 → 自动。
+     * 三种模式轮换：自动（跟随手机重力感应）→ 横屏 → 竖屏 → 自动。
      * 清单里已配置 configChanges，切换时不会重建 Activity，播放不会中断。
      */
     private fun applyRotation() {
         requestedOrientation = when (rotateMode) {
             1 -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_LANDSCAPE
             2 -> ActivityInfo.SCREEN_ORIENTATION_SENSOR_PORTRAIT
-            else -> ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+            else -> ActivityInfo.SCREEN_ORIENTATION_FULL_SENSOR
         }
         rotateButton?.text = when (rotateMode) {
             1 -> getString(R.string.rotate_land)
