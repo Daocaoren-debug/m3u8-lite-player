@@ -5,4 +5,5 @@
     <string name="scan_all">扫描本机</string>
     <string name="pick_folder">选择文件夹</string>
     <string name="empty_result">没有找到 m3u8 文件。\n请确认已授权“所有文件访问权限”，或使用“选择文件夹”。</string>
+    <string name="thumbnail_desc">视频预览图</string>
 </resources>
