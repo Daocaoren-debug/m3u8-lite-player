@@ -1,3 +1,47 @@
+name: Fix thumbnail frame fallback
+
+on:
+  push:
+    paths:
+      - '.github/workflows/update-thumbs.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch Kotlin source
+        run: |
+          python3 - <<'PYEOF'
+          p = 'app/src/main/java/com/m3u8/liteplayer/ThumbnailLoader.kt'
+          s = open(p, encoding='utf-8').read()
+          old = '''            val frame = try {
+                retriever.frameAtTime(0, MediaMetadataRetriever.OPTION_NEXT_SYNC)
+            } catch (e: Exception) {
+                retriever.frameAtTime(0)
+            } ?: retriever.frameAtTime(0) ?: return null
+            return resize(frame)'''
+          new = '''            val frame = try {
+                retriever.frameAtTime(0, MediaMetadataRetriever.OPTION_NEXT_SYNC)
+            } catch (e: Exception) {
+                null
+            } ?: retriever.frameAtTime(0)
+            if (frame == null) return null
+            return resize(frame)'''
+          assert old in s, 'old block not found'
+          open(p, 'w', encoding='utf-8').write(s.replace(old, new))
+          PYEOF
+      - name: Commit patch
+        run: |
+          git config user.name "WorkBuddy Bot"
+          git config user.email "bot@workbuddy.cn"
+          git add app/src/main/java/com/m3u8/liteplayer/ThumbnailLoader.kt
+          git diff --cached --quiet || git commit -m "Fix thumbnail frame fallback compilation"
+          git push
 name: Add thumbnail previews
 
 on:
