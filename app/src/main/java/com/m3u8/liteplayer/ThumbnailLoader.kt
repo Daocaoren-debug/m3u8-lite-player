@@ -181,10 +181,10 @@ object ThumbnailLoader {
                 retriever.setDataSource(context, uri)
             }
             val frame = try {
-                retriever.frameAtTime(0, MediaMetadataRetriever.OPTION_NEXT_SYNC)
+                retriever.frameAtTime(0L, MediaMetadataRetriever.OPTION_NEXT_SYNC)
             } catch (e: Exception) {
                 null
-            } ?: retriever.frameAtTime(0)
+            } ?: retriever.frameAtTime(0L)
             if (frame == null) return null
             return resize(frame)
         } catch (e: Exception) {
