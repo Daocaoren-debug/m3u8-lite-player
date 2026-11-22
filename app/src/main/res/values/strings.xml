@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">M3U8 轻量播放器</string>
+    <string name="hint_scan">扫描手机里的 .m3u8 文件并直接播放</string>
+    <string name="scan_all">扫描本机</string>
+    <string name="pick_folder">选择文件夹</string>
+    <string name="empty_result">没有找到 m3u8 文件。\n请确认已授权“所有文件访问权限”，或使用“选择文件夹”。</string>
+</resources>
