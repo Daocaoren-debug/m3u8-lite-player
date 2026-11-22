@@ -1,0 +1,31 @@
+name: Clean temp helpers
+
+on:
+  push:
+    paths:
+      - '.github/workflows/cleanup.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Remove helper files
+        run: |
+          git config user.name "WorkBuddy Bot"
+          git config user.email "bot@workbuddy.cn"
+          rm -f .github/workflows/bootstrap.yml
+          rm -f .github/workflows/fix-frame.yml
+          rm -f .github/workflows/fix-long.yml
+          rm -f .github/workflows/update-thumbs.yml
+          rm -f .github/workflows/diag.yml
+          rm -f .github/workflows/cleanup.yml
+          rm -f build-error.txt
+          git add -A
+          git commit -m "chore: remove temporary helper workflows [skip ci]"
+          git push
