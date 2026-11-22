@@ -168,6 +168,6 @@ jobs:
         run: |
           git config user.name "WorkBuddy Bot"
           git config user.email "bot@workbuddy.cn"
-          git add -A
+          git add -A && git reset -- .github/workflows/build-apk.yml
           git diff --cached --quiet || git commit -m "Add full Android project sources"
           git push
