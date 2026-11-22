@@ -17,16 +17,12 @@
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
 
-    <!-- 默认控制器自带：进度条拖动跳转、播放/暂停、快进 10s、快退 10s、全屏 -->
+    <!-- 默认控制器自带：进度条拖动跳转、播放/暂停、快进、快退、全屏 -->
     <androidx.media3.ui.PlayerView
         android:id="@+id/playerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         app:show_buffering="when_playing"
-        app:show_fast_forward_button="true"
-        app:show_next_button="false"
-        app:show_previous_button="false"
-        app:show_rewind_button="true"
         app:use_controller="true" />
 </LinearLayout>
